@@ -172,3 +172,10 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Frontend ile ilgili gereksiz dosyalar
+frontend/node_modules/
+frontend/build/
+
+# Python sanal ortamı (zaten 12M)
+venv/
