@@ -14,6 +14,9 @@
 ✅ **Database Support** – Stores past searches for future reference  
 
 ---
+## 🖼️ Screenshot
+
+---
 
 ## 📌 Installation  
 
