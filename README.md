@@ -23,3 +23,8 @@ Clone the repository:
 
 username/product-analysis-ai.git
 cd product-analysis-ai
+
+## 🖼️ Screenshot
+
+![Screenshot](https://user-images.githubusercontent.com/123456789/abcdef123456789.png)
+
