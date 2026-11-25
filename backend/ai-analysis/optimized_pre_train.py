@@ -14,9 +14,12 @@ from langdetect import detect, LangDetectException  # Dil tespiti için
 # ------------------------------
 # 🔧 Yapılandırma
 # ------------------------------
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
 class TrainingDataConfig:
     # Giriş verisi dosya yolu (hem food hem kozmetik kayıtlarını içeriyor)
-    INPUT_PATH = "/Users/konak/Downloads/product-analysis/backend/ai-analysis/data/processed_openfoodfacts.parquet"
+    INPUT_PATH = os.path.join(SCRIPT_DIR, "data", "processed_openfoodfacts.parquet")
     # Çıktı dosya yolu (CSV olarak kaydetmek için)
     OUTPUT_PATH = "optimized_training_data.csv"
     # Toplam alınacak örnek kayıt sayısı (örneğin 1000, dengeli olmak üzere 500 gıda, 500 kozmetik)

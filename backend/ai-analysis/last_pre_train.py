@@ -22,8 +22,10 @@ class Colors:
     RED = '\033[91m'
     RESET = '\033[0m'
 
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
 class Config:
-    INPUT_CSV = "/Users/konak/Downloads/product-analysis/backend/ai-analysis/optimized_training_data_fixed.csv"
+    INPUT_CSV = os.path.join(SCRIPT_DIR, "optimized_training_data_fixed.csv")
     OUTPUT_CSV = "last_output.csv"
     API_ENDPOINT = "http://localhost:11434/api/generate"
     MODEL_NAME = "mistral:7b-instruct-q2_K"
@@ -149,7 +151,7 @@ def main():
     
     try:
         df = pd.read_csv(Config.INPUT_CSV, dtype={'product_name': 'string', 'category': 'string'}).fillna('Unknown')
-        checkpoint_file = "/Users/konak/Downloads/product-analysis/backend/ai-analysis/checkpoint.csv"
+        checkpoint_file = os.path.join(SCRIPT_DIR, "checkpoint.csv")
 
         # Debug: Giriş dosyasını kontrol et
         logging.info(f"{Colors.CYAN}Input CSV loaded with {len(df)} rows.{Colors.RESET}")

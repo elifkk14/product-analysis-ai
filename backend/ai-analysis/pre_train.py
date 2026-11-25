@@ -362,7 +362,7 @@ def main():
         logging.info("Test results:\n%s", test_result)
         
         # Ana işlem
-        input_file = os.path.join(Config.INPUT_PATH, "/Users/konak/Downloads/product-analysis/backend/ai-analysis/data/processed_openfoodfacts.parquet")
+        input_file = os.path.join(Config.INPUT_PATH, "processed_openfoodfacts.parquet")
         output_file = os.path.join(Config.OUTPUT_PATH, "pre_train_results.csv")
         
         df = pd.read_parquet(input_file)
@@ -409,7 +409,7 @@ if __name__ == "__main__":
         
         # Yol kontrolleri
         Config.validate_paths()
-        input_path = os.path.abspath(os.path.join(Config.INPUT_PATH, "/Users/konak/Downloads/product-analysis/backend/ai-analysis/data/processed_openfoodfacts.parquet"))
+        input_path = os.path.abspath(os.path.join(Config.INPUT_PATH, "processed_openfoodfacts.parquet"))
         output_path = os.path.abspath(os.path.join(Config.OUTPUT_PATH, "pre_train_results.csv"))
         
         # Veriyi yükle ve işle

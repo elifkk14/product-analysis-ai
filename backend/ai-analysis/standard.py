@@ -1,7 +1,10 @@
 import csv
+import os
 
-input_path = '/Users/konak/Downloads/product-analysis/backend/ai-analysis/final2.csv'
-output_path = '/Users/konak/Downloads/product-analysis/backend/ai-analysis/final2_standardized.csv'
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+input_path = os.path.join(SCRIPT_DIR, 'final2.csv')
+output_path = os.path.join(SCRIPT_DIR, 'final2_standardized.csv')
 
 with open(input_path, 'r', newline='', encoding='utf-8') as infile, \
      open(output_path, 'w', newline='', encoding='utf-8') as outfile:

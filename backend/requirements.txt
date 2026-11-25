@@ -1,0 +1,23 @@
+# API
+fastapi
+uvicorn
+pydantic
+
+# Models
+tensorflow
+transformers
+numpy
+joblib
+
+# Data collection and labeling pipeline
+pandas
+pyarrow
+requests
+aiohttp
+async-lru
+jsonschema
+langdetect
+tqdm
+ollama
+psutil
+python-dotenv

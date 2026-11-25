@@ -8,31 +8,36 @@ import joblib
 import numpy as np
 import uvicorn
 from tensorflow.keras.models import load_model
+import os
+from pathlib import Path
 
 app = FastAPI()
+
+# Model dosyalarının konumu (varsayılan: backend/ai-analysis/deep_models)
+MODEL_DIR = Path(os.getenv("MODEL_DIR", Path(__file__).resolve().parent / "ai-analysis" / "deep_models"))
 
 # ========================= MODEL YÜKLEME =========================
 # BERT Modeli
 BERT_MODEL = load_model(
-    "/Users/konak/Downloads/product-analysis/backend/ai-analysis/deep_models/bert_multi_output",
+    str(MODEL_DIR / "bert_multi_output"),
     custom_objects={"TFBertModel": TFBertModel},  # Hugging Face BERT katmanı için
     compile=False
 )
 
 # LSTM Modeli
 LSTM_MODEL = load_model(
-    "/Users/konak/Downloads/product-analysis/backend/ai-analysis/deep_models/ltsm/lstm_model.h5"
+    str(MODEL_DIR / "ltsm" / "lstm_model.h5")
 )
 
 # Tokenizer ve Encoder'lar
 BERT_TOKENIZER = BertTokenizer.from_pretrained(
-    "/Users/konak/Downloads/product-analysis/backend/ai-analysis/deep_models/bert_multi_output"  # Yerel tokenizer
+    str(MODEL_DIR / "bert_multi_output")  # Yerel tokenizer
 )
 LSTM_TOKENIZER = joblib.load(
-    "/Users/konak/Downloads/product-analysis/backend/ai-analysis/deep_models/ltsm/lstm_tokenizer.joblib"
+    MODEL_DIR / "ltsm" / "lstm_tokenizer.joblib"
 )
 ENCODERS = joblib.load(
-    "/Users/konak/Downloads/product-analysis/backend/ai-analysis/deep_models/bert/bert_encoders.joblib"
+    MODEL_DIR / "bert" / "bert_encoders.joblib"
 )
 
 # ========================= CORS AYARLARI =========================
