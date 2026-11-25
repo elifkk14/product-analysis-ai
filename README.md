@@ -106,6 +106,22 @@ python main.py
 
 The API runs on `http://localhost:8000`. Interactive docs: `http://localhost:8000/docs`.
 
+### 5. Run the frontend (Node.js 18+)
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The app runs on `http://localhost:3001`. The barcode scanner reads barcodes/QR codes from the camera (`@zxing/browser`), fetches product data from the **OpenFoodFacts API**, and sends the ingredients to the backend for analysis.
+
+If the backend runs somewhere other than `http://localhost:8000`, set `NEXT_PUBLIC_API_URL` in `frontend/.env.local`:
+
+```bash
+NEXT_PUBLIC_API_URL=http://your-backend-host:8000
+```
+
 ---
 
 ## 🔌 API Usage
