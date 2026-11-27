@@ -1,28 +1,40 @@
 # 📌 Product Content Analysis AI
 
-🚀 **AI-powered product content analysis tool**  
-🔍 Scans ingredients from **barcode/QR** or manual input and classifies them as **safe or harmful**  
-🛠️ **Tech Stack:** Python, FastAPI, Next.js, Hugging Face, PostgreSQL  
+Scan a product's barcode, or paste its ingredient list, and get each ingredient classified as
+**safe or harmful** with an overall toxicity level.
+
+**Tech stack:** Python, FastAPI, TensorFlow/Keras, Hugging Face Transformers (BERT), Ollama
+(local Mistral), pandas, Next.js
 
 ---
 
 ## 🎯 Features
 
-✅ **Ingredient Analysis** – Classifies product ingredients into **safe, harmful, or unknown**  
-✅ **AI Model** – Uses **NLP & Machine Learning** to analyze product data  
-✅ **Barcode/QR Support** – Scan product packaging for automatic data retrieval  
-✅ **Database Support** – Stores past searches for future reference  
+- **LLM labelling pipeline:** ingredient lists from OpenFoodFacts and OpenBeautyFacts are
+  labelled safe or harmful by a local Mistral model on Ollama, which must answer in a fixed JSON
+  format; an answer that fails the schema check is recorded as an error, not as a label
+- **Large-file handling:** multi-gigabyte dumps streamed in 100,000-row chunks, downloads with
+  retries, concurrent requests to the model, and a checkpoint file for long runs
+- **Barcode and QR scanning:** reads the code from the camera and fetches the product from the
+  OpenFoodFacts API
+- **Analysis API:** a FastAPI endpoint that returns harmful and safe ingredients and a toxicity
+  level from two classifiers (BERT and LSTM)
 
 ---
 
 ## 🖼️ Screenshots
 <img width="1489" alt="Screenshot 2025-03-25 at 21 58 50" src="https://github.com/user-attachments/assets/b70af428-f60e-4969-beea-5b1d0f842d1e" />
 <img width="1496" alt="Screenshot 2025-03-25 at 21 59 47" src="https://github.com/user-attachments/assets/79ad9322-094a-4300-a301-d3ae37586b72" />
+
+<details><summary>More screenshots</summary>
+
 <img width="1503" alt="Screenshot 2025-03-25 at 21 59 39" src="https://github.com/user-attachments/assets/1794fb6c-4f3e-4215-8033-8ffc33bd8803" />
 <img width="1502" alt="Screenshot 2025-03-25 at 21 59 32" src="https://github.com/user-attachments/assets/f870022f-d37d-4b2f-9c10-89710abd2a51" />
 <img width="1503" alt="Screenshot 2025-03-25 at 21 59 19" src="https://github.com/user-attachments/assets/9bd697f2-c972-4b7f-80d5-ca270016a72c" />
 <img width="1501" alt="Screenshot 2025-03-25 at 21 59 10" src="https://github.com/user-attachments/assets/96b6a772-5497-4746-b04b-c0aaa46bc2d0" />
 <img width="1495" alt="Screenshot 2025-03-25 at 21 59 01" src="https://github.com/user-attachments/assets/000c61af-17e8-47fa-b23f-e774d8086def" />
+
+</details>
 
 ---
 
@@ -36,7 +48,7 @@ processed_openfoodfacts.parquet  (barcode, name, brand, ingredients)
         │  optimized_pre_train.py / pre_train.py / last_pre_train.py
         │  (cleaning, balancing, LLM-assisted labeling via a local Mistral model)
         ▼
-Labeled training data  ──►  BERT + LSTM models
+Labeled data  ──►  classifier training (not in this repository)  ──►  BERT + LSTM models
         │
         ▼
 FastAPI backend (/analyze)  ──►  Next.js frontend
@@ -56,7 +68,7 @@ FastAPI backend (/analyze)  ──►  Next.js frontend
 - Saves progress to a **checkpoint** file so long runs can resume where they stopped.
 
 ### API (`backend/main.py`)
-- Combines a fine-tuned **BERT** model and an **LSTM** model (ensemble) to detect harmful ingredients and estimate a toxicity level.
+- Loads a fine-tuned **BERT** model and an **LSTM** model (weights and training code are not in this repository) and combines them to detect harmful ingredients and estimate a toxicity level.
 - Exposes a single `POST /analyze` endpoint.
 
 ---
